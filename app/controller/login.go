@@ -10,32 +10,40 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
-func LoginChecker(db *sql.DB) func(w http.ResponseWriter, r *http.Request) {
-	return func(w http.ResponseWriter, r *http.Request) {
-		if r.Method == http.MethodGet {
-			fp := filepath.Join("app", "views", "login.html")
-			tmpl, err := template.ParseFiles(fp)
-			if err != nil {
-				w.WriteHeader(http.StatusInternalServerError)
-				w.Write([]byte("Error parsing template: " + err.Error()))
-				return
-			}
-
-			err = tmpl.Execute(w, nil)
-			if err != nil {
-				w.WriteHeader(http.StatusInternalServerError)
-				w.Write([]byte("Error executing template: " + err.Error()))
-				return
-			}
+func LoginChecker(w http.ResponseWriter, r *http.Request) {
+	if r.Method == http.MethodGet {
+		fp := filepath.Join("app", "views", "login.html")
+		tmpl, err := template.ParseFiles(fp)
+		if err != nil {
+			w.WriteHeader(http.StatusInternalServerError)
+			w.Write([]byte("Error parsing template: " + err.Error()))
 			return
 		}
 
-		// Proses login jika method POST
+		err = tmpl.Execute(w, nil)
+		if err != nil {
+			w.WriteHeader(http.StatusInternalServerError)
+			w.Write([]byte("Error executing template: " + err.Error()))
+			return
+		}
+		return
+	}
+
+	if r.Method == http.MethodPost {
 		email := r.FormValue("email")
 		password := r.FormValue("password")
 
 		var hashedPassword string
-		err := database.DB.QueryRow("SELECT password FROM akun WHERE email=?", email).Scan(&hashedPassword)
+
+		// Gunakan prepared statement untuk mencegah SQL Injection
+		stmt, err := database.DB.Prepare("SELECT password FROM users WHERE email = ?")
+		if err != nil {
+			http.Error(w, "Server error, unable to prepare SQL statement", http.StatusInternalServerError)
+			return
+		}
+		defer stmt.Close()
+
+		err = stmt.QueryRow(email).Scan(&hashedPassword)
 		if err != nil {
 			if err == sql.ErrNoRows {
 				http.Error(w, "Email or password is incorrect", http.StatusUnauthorized)
@@ -51,7 +59,7 @@ func LoginChecker(db *sql.DB) func(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		// Jika berhasil login, redirect atau tampilkan pesan sukses
-		http.Redirect(w, r, "/orderList", http.StatusSeeOther)
+		// Jika berhasil login, redirect ke dashboard
+		http.Redirect(w, r, "/dashboard", http.StatusSeeOther)
 	}
 }

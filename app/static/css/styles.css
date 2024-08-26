@@ -325,7 +325,7 @@ select {
 	-ms-appearance: none;
     -o-appearance: none;
     appearance: none;
-    background-image: url('../../assets/down-arrow.png');
+    background-image: url('/static/assets/down-arrow.png');
     background-position: 96% 50%;
     background-repeat: no-repeat;
     outline: none;
@@ -777,7 +777,7 @@ input[type='checkbox'] {
 /*    04. Header     */
 /*********************/
 .header {
-	background: url('../../assets/bg.png') center center no-repeat;
+	background: url('/static/assets/bg.png') center center no-repeat;
 	background-size: cover;
 }
 
@@ -904,7 +904,7 @@ input[type='checkbox'] {
 	position: absolute;
 	width: 6rem;
 	height: 6rem;
-	background: url('../../assets/hexagon-green.svg') center center no-repeat;
+	background: url('/static/assets/hexagon-green.svg') center center no-repeat;
 	background-size: 6rem 6rem;
 }
 
@@ -1585,13 +1585,13 @@ input[type='checkbox'] {
 	left: 0;
 	width: 1.75rem;
 	height: 1.75rem;
-	background: url('../../assets/hexagon-green.svg') center center no-repeat;
+	background: url('/static/assets/hexagon-green.svg') center center no-repeat;
 	background-size: 1.75rem 1.75rem;
 	transition: all 0.2s ease;
 }
 
 .basic-2 .fa-stack:hover .hexagon {
-	background: url('../../assets/hexagon-white.svg') center center no-repeat;
+	background: url('/static/assets/hexagon-white.svg') center center no-repeat;
 	background-size: 1.75rem 1.75rem;
 }
 
@@ -1726,13 +1726,17 @@ input[type='checkbox'] {
 	position: absolute;
 	width: 3.25rem;
 	height: 3.25rem;
-	background: url('../../assets/hexagon-green.svg') center center no-repeat;
+	background: url('/static/assets/hexagon-green.svg') center center no-repeat;
 	background-size: 3.25rem 3.25rem;
 	transition: all 0.2s ease;
+	-webkit-transition: all 0.2s ease;
+	-moz-transition: all 0.2s ease;
+	-ms-transition: all 0.2s ease;
+	-o-transition: all 0.2s ease;
 }
 
 .form-2 .fa-stack:hover .hexagon {
-	background: url('../../assets/hexagon-white.svg') center center no-repeat;
+	background: url('/static/assets/hexagon-white.svg') center center no-repeat;
 	background-size: 3.25rem 3.25rem;
 }
 
@@ -1801,7 +1805,7 @@ a.back-to-top {
 	width: 2.625rem;
 	height: 2.625rem;
 	border-radius: 1.875rem;
-	background: #F6A651 url("../../assets/up-arrow.png") no-repeat center 47%;
+	background: #F6A651 url("/static/assets/up-arrow.png") no-repeat center 47%;
 	background-size: 1.125rem 1.125rem;
 	text-indent: -9999px;
 }
@@ -2086,13 +2090,13 @@ a:hover.back-to-top {
 		width: 1.625rem;
 		height: 1.625rem;
 		position: absolute;
-		background: url('../../assets/hexagon-green.svg') center center no-repeat;
+		background: url('/static/assets/hexagon-green.svg') center center no-repeat;
 		background-size: 1.625rem 1.625rem;
 		transition: all 0.2s ease;
 	}
 
 	.navbar-custom .fa-stack:hover .hexagon {
-		background: url('../../assets/hexagon-white.svg') center center no-repeat;
+		background: url('/static/assets/hexagon-white.svg') center center no-repeat;
 		background-size: 1.625rem 1.625rem;
 	}
 	

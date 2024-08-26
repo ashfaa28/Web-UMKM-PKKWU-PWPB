@@ -9,7 +9,7 @@ import (
 
 func NewIndexHtml(db *sql.DB) func(w http.ResponseWriter, r *http.Request) {
 	return func(w http.ResponseWriter, r *http.Request) {
-		fp := filepath.Join("index.html")
+		fp := filepath.Join("app", "views", "index.html")
 		tmpl, err := template.ParseFiles(fp)
 		if err != nil {
 			w.WriteHeader(http.StatusInternalServerError)
