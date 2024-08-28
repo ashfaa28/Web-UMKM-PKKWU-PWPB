@@ -1,0 +1,17 @@
+Contoh untuk order Query
+
+SELECT 
+    user.username, 
+    user.email, 
+    `order`.id AS order_id, 
+    `order`.order_date, 
+    `order`.total_amount, 
+    `order`.status
+FROM 
+    user
+JOIN 
+    `order` ON user.id = `order`.user_id
+WHERE 
+    user.id = 1  -- Ganti dengan ID pengguna yang ingin ditampilkan
+ORDER BY 
+    `order`.order_date DESC;

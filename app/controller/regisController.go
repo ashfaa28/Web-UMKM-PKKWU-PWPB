@@ -1,7 +1,6 @@
 package controller
 
 import (
-	"UMKM/app/database"
 	"database/sql"
 	"html/template"
 	"net/http"
@@ -10,7 +9,7 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
-func Register(db *sql.DB) func(w http.ResponseWriter, r *http.Request) {
+func Register(db *sql.DB) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		if r.Method == http.MethodGet {
 			fp := filepath.Join("app", "views", "register.html")
@@ -35,15 +34,13 @@ func Register(db *sql.DB) func(w http.ResponseWriter, r *http.Request) {
 			email := r.FormValue("email")
 			password := r.FormValue("password")
 
-			// Hash password sebelum disimpan ke database
 			hashedPassword, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
 			if err != nil {
 				http.Error(w, "Server error, unable to create your account", http.StatusInternalServerError)
 				return
 			}
 
-			// Gunakan prepared statement untuk mencegah SQL Injection
-			stmt, err := database.DB.Prepare("INSERT INTO akun (username, email, password) VALUES (?, ?, ?)")
+			stmt, err := db.Prepare("INSERT INTO akun (username, email, password) VALUES (?, ?, ?)")
 			if err != nil {
 				http.Error(w, "Server error, unable to prepare SQL statement", http.StatusInternalServerError)
 				return
@@ -56,7 +53,6 @@ func Register(db *sql.DB) func(w http.ResponseWriter, r *http.Request) {
 				return
 			}
 
-			// Redirect ke halaman login setelah pendaftaran berhasil
 			http.Redirect(w, r, "/verfiedUserLogin", http.StatusSeeOther)
 		}
 	}

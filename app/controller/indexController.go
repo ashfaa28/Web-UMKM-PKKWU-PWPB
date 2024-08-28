@@ -7,9 +7,9 @@ import (
 	"path/filepath"
 )
 
-func NewAddOrder(db *sql.DB) func(w http.ResponseWriter, r *http.Request) {
+func NewIndexHtml(db *sql.DB) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		fp := filepath.Join("app", "views", "order.html")
+		fp := filepath.Join("app", "views", "index.html")
 		tmpl, err := template.ParseFiles(fp)
 		if err != nil {
 			w.WriteHeader(http.StatusInternalServerError)
