@@ -15,3 +15,16 @@ WHERE
     user.id = 1  -- Ganti dengan ID pengguna yang ingin ditampilkan
 ORDER BY 
     `order`.order_date DESC;
+
+
+    <h1>Login Dulu BOSSS</h1>
+    <form method="post" action="/verfiedUserLogin">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required><br>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required><br>
+
+        <button type="submit">Login</button>
+    </form>
+</body>

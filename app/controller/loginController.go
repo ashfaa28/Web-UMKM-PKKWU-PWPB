@@ -20,20 +20,7 @@ type UserData struct {
 func LoginChecker(db *sql.DB) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		if r.Method == http.MethodGet {
-			fp := filepath.Join("app", "views", "login.html")
-			tmpl, err := template.ParseFiles(fp)
-			if err != nil {
-				w.WriteHeader(http.StatusInternalServerError)
-				w.Write([]byte("Error parsing template: " + err.Error()))
-				return
-			}
-
-			err = tmpl.Execute(w, nil)
-			if err != nil {
-				w.WriteHeader(http.StatusInternalServerError)
-				w.Write([]byte("Error executing template: " + err.Error()))
-				return
-			}
+			renderTemplate(w, nil)
 			return
 		}
 
@@ -42,8 +29,7 @@ func LoginChecker(db *sql.DB) http.HandlerFunc {
 			password := r.FormValue("password")
 
 			var userID int
-			var username string
-			var hashedPassword string
+			var username, hashedPassword string
 
 			queryLogin, err := db.Prepare("SELECT username, user_id, password FROM akun WHERE email = ?")
 			if err != nil {
@@ -55,7 +41,7 @@ func LoginChecker(db *sql.DB) http.HandlerFunc {
 			err = queryLogin.QueryRow(email).Scan(&username, &userID, &hashedPassword)
 			if err != nil {
 				if err == sql.ErrNoRows {
-					http.Error(w, "Email or password is incorrect", http.StatusUnauthorized)
+					renderTemplate(w, map[string]string{"ErrorMessage": "Pastikan Email dan Password benar"})
 					return
 				}
 				http.Error(w, "Server error, unable to log in", http.StatusInternalServerError)
@@ -64,7 +50,7 @@ func LoginChecker(db *sql.DB) http.HandlerFunc {
 
 			err = bcrypt.CompareHashAndPassword([]byte(hashedPassword), []byte(password))
 			if err != nil {
-				http.Error(w, "Email or password is incorrect", http.StatusUnauthorized)
+				renderTemplate(w, map[string]string{"ErrorMessage": "Pastikan Email dan Password benar"})
 				return
 			}
 
@@ -75,11 +61,24 @@ func LoginChecker(db *sql.DB) http.HandlerFunc {
 
 			http.SetCookie(w, &http.Cookie{
 				Name:  "session_id",
-				Value: "some_session_id", // membuat dan store session dengan ID tertentu (dengan gorrila session)
+				Value: "some_session_id",
 				Path:  "/",
 			})
 
 			http.Redirect(w, r, "/order", http.StatusSeeOther)
 		}
+	}
+}
+
+func renderTemplate(w http.ResponseWriter, data interface{}) {
+	fp := filepath.Join("app", "views", "login.html")
+	tmpl, err := template.ParseFiles(fp)
+	if err != nil {
+		http.Error(w, "Error parsing template: "+err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	if err := tmpl.Execute(w, data); err != nil {
+		http.Error(w, "Error executing template: "+err.Error(), http.StatusInternalServerError)
 	}
 }

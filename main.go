@@ -14,9 +14,9 @@ func main() {
 
 	routes.MapRoutes(server, db)
 
-	fmt.Println("Server berjalan di http://localhost:8080") // Pindahkan sebelum ListenAndServe
+	fmt.Println("Server berjalan di http://localhost:3000")
 
-	err := http.ListenAndServe(":8080", server)
+	err := http.ListenAndServe(":3000", server)
 	if err != nil {
 		fmt.Println("Error saat menjalankan server:", err)
 	}
