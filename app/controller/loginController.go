@@ -1,16 +1,14 @@
 package controller
 
 import (
+	"UMKM/app/store"
 	"database/sql"
 	"html/template"
 	"net/http"
 	"path/filepath"
 
-	"github.com/gorilla/sessions"
 	"golang.org/x/crypto/bcrypt"
 )
-
-var store = sessions.NewCookieStore([]byte("secret-key"))
 
 type UserData struct {
 	UserID   int
@@ -54,7 +52,7 @@ func LoginChecker(db *sql.DB) http.HandlerFunc {
 				return
 			}
 
-			session, _ := store.Get(r, "session-name")
+			session, _ := store.Store.Get(r, "session-name")
 			session.Values["user_id"] = userID
 			session.Values["username"] = username
 			session.Save(r, w)

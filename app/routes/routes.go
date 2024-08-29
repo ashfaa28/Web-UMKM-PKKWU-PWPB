@@ -14,6 +14,7 @@ func MapRoutes(server *http.ServeMux, db *sql.DB) {
 	// Rute tanpa middleware
 	server.HandleFunc("/verfiedUserLogin", controller.LoginChecker(db))
 	server.HandleFunc("/register", controller.Register(db))
+	server.HandleFunc("/logOut", controller.LogOut)
 	server.HandleFunc("/", controller.NewIndexHtml(db))
 
 	// Rute dengan middleware

@@ -1,6 +1,7 @@
 package controller
 
 import (
+	"UMKM/app/store"
 	"database/sql"
 	"html/template"
 	"net/http"
@@ -18,7 +19,7 @@ type MenuItem struct {
 // Handler untuk membuat pesanan baru
 func NewAddOrder(db *sql.DB) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		session, _ := store.Get(r, "session-name")
+		session, _ := store.Store.Get(r, "session-name")
 
 		userID, userIDok := session.Values["user_id"].(int)
 		username, usernameok := session.Values["username"].(string)
