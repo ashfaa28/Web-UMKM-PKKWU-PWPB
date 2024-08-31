@@ -9,3 +9,16 @@ Sebelum menjalankan web ini mohon install beberapa item dibawah:
 - [MySQL](https://dev.mysql.com/downloads/installer/) (version 8.0 or higher)
 - [Go MySQL Driver](https://github.com/go-sql-driver/mysql)
 - [Go bcrypt](https://pkg.go.dev/golang.org/x/crypto/bcrypt)
+-[SweetAlert](https://sweetalert.js.org/)
+
+Langkah-Langkah:
+1. go get -u github.com/go-sql-driver/mysql
+2. go get -u github.com/gorilla/mux
+3. go get -u github.com/gorilla/sessions
+4. npm install sweetalert2
+
+## Cara Menjalankan
+1. Ketik di terminal "go run main.go"
+2. lalu Klik link yang ada di terminal
+
+

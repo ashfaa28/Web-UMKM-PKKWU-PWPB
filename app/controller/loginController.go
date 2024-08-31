@@ -63,7 +63,7 @@ func LoginChecker(db *sql.DB) http.HandlerFunc {
 				Path:  "/",
 			})
 
-			http.Redirect(w, r, "/order", http.StatusSeeOther)
+			http.Redirect(w, r, "/", http.StatusSeeOther)
 		}
 	}
 }

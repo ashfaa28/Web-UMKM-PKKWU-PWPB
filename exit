@@ -1,0 +1,12 @@
+[33m7dff47d[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m HEAD@{0}: commit: Tambah fitur Logout
+[33md3a58e7[m HEAD@{1}: commit: Menambahkan chart dan view login dll
+[33me3c7317[m HEAD@{2}: pull --tags origin main: Merge made by the 'ort' strategy.
+[33m860b8b3[m HEAD@{3}: commit: OrderPageOK | Hapus 1 view
+[33m40f2064[m HEAD@{4}: commit: OrderPageOK
+[33m5d97b40[m HEAD@{5}: checkout: moving from main to main
+[33m5d97b40[m HEAD@{6}: commit: middleWarefunc
+[33md2c3b25[m HEAD@{7}: Branch: renamed refs/heads/main to refs/heads/main
+[33md2c3b25[m HEAD@{9}: Branch: renamed refs/heads/main to refs/heads/main
+[33md2c3b25[m HEAD@{11}: commit: Anti-SQL-Injection
+[33mf9369da[m HEAD@{12}: Branch: renamed refs/heads/master to refs/heads/main
+[33mf9369da[m HEAD@{14}: commit (initial): AngkringanKita-userController

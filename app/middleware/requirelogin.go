@@ -13,13 +13,10 @@ func RequireLogin(next http.Handler) http.Handler {
 			return
 		}
 
-		// Jika sudah login, lanjutkan ke handler berikutnya
 		next.ServeHTTP(w, r)
 	})
 }
 
 func isValidSession(sessionID string) bool {
-	// Implementasikan logika untuk memeriksa apakah sesi valid
-	// Misalnya, periksa dalam database atau cache
 	return true
 }
